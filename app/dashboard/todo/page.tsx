@@ -2,7 +2,8 @@
 import clsx from 'clsx';
 
 import { useState } from 'react';
-import styles from '@/app/ui/todo/home.module.css';
+import TodoList from '@/app/ui/todo/todo-list';
+import InputFeald from '@/app/ui/todo/input-feald';
 
 export default function Todo() {
   type Todo = {
@@ -46,31 +47,11 @@ export default function Todo() {
 
   return (
     <div className="App">
-      <label>
-        <input
-          className={styles.todo__input}
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-        <button className={styles.todo__button} onClick={addTodo}>
-          Add ToDo
-        </button>
-      </label>
+      <InputFeald text={text} handleInput={setText} handleSubmit={addTodo} />
+    
+      <TodoList todos={todos} removeTodo={removeTodo} toggleTodoCompleted={toggleTodoCompleted} />
 
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            <input
-              className={styles.input__checkbox}
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => toggleTodoCompleted(todo.id)}
-            />
-            <span className={styles.checkbox__span}>{todo.text}</span>
-            <button onClick={() => removeTodo(todo.id)}>&times;</button>
-          </li>
-        ))}
-      </ul>
+
     </div>
   );
 }
